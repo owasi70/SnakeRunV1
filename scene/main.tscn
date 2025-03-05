@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bui3lmuanot7h"]
+[gd_scene load_steps=9 format=3 uid="uid://bui3lmuanot7h"]
 
 [ext_resource type="PackedScene" uid="uid://ubghcpabuo1" path="res://scene/snake.tscn" id="1_61r3q"]
 [ext_resource type="Script" path="res://script/camera_2d.gd" id="1_mvq4d"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dylej43hp4b51" path="res://scene/food.tscn" id="5_ttqjx"]
 [ext_resource type="Script" path="res://script/box_manager.gd" id="6_413no"]
 [ext_resource type="PackedScene" uid="uid://bw6hdqsks2n0o" path="res://scene/box.tscn" id="7_crl1a"]
+[ext_resource type="Script" path="res://script/hud.gd" id="8_tn8h0"]
 
 [node name="main" type="Node2D"]
 
@@ -33,7 +34,6 @@ texture = ExtResource("2_sytql")
 script = ExtResource("4_d8dcq")
 snake_path = NodePath("../snake")
 food_scene = ExtResource("5_ttqjx")
-appearance_frequency = 60
 
 [node name="BoxManager" type="Node2D" parent="."]
 script = ExtResource("6_413no")
@@ -44,3 +44,27 @@ max_spawn_time = 3.0
 min_spawn_dist = 1000.0
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="hud" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_tn8h0")
+
+[node name="scoreLabel" type="Label" parent="CanvasLayer/hud"]
+top_level = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 64.0
+grow_horizontal = 0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 46

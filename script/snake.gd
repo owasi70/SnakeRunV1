@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-@export var speed: float = 200.0
+@export var speed : float = 200
 @export var sensitivity: float = 10.0
 @export var tail_scene: PackedScene
 @export var follow_speed: float = 20.0
@@ -13,14 +13,19 @@ var previous_position: Array = []
 var tail_segments: Array = []
 var is_colliding_with_box: bool = false
 var box: Node = null 
-
+var last_y_position = position.y
+var score = 0
 func _ready() -> void:
 	update_label()
 	for i in range(health):
 		add_tail_segment()
 
 func _process(delta: float) -> void:
-	position.y -= speed * delta  
+	position.y -= speed * delta
+	if position.y < last_y_position:
+		score += int(abs(position.y - last_y_position))
+		SignalManager.On_Score_Update.emit(score)
+		last_y_position = position.y  
 
 	if dragging:
 		var touch_pos : Vector2 = get_global_mouse_position()
@@ -36,7 +41,7 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	if not dragging:  # Move only if not dragging
-		linear_velocity = Vector2(0, speed)  # Move upwards
+		linear_velocity = Vector2(0, -speed)  # Move upwards
 	else:
 		linear_velocity = Vector2.ZERO  
 func add_tail_segment() -> void:
@@ -65,6 +70,7 @@ func decrease_length(amount: int) -> void:
 
 func update_label() -> void:
 	health_label.text = str(health)
+	SignalManager.On_Health_Update.emit(health)
 
 func game_over() -> void:
 	print("Game Over!")

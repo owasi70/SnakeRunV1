@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://dv0cqrxjlwlkx"]
+
+[ext_resource type="Script" path="res://text/rigid_body_2d.gd" id="1_2r8b8"]
+[ext_resource type="Texture2D" uid="uid://bb77tm6myevic" path="res://asset/head.png" id="2_02wl3"]
+[ext_resource type="Texture2D" uid="uid://3si5snhm4sf5" path="res://asset/candy-256.png" id="3_a7nbj"]
+[ext_resource type="Texture2D" uid="uid://bpo7pu64qci3b" path="res://asset/apple-256.png" id="3_lr6bu"]
+[ext_resource type="PackedScene" uid="uid://bw6hdqsks2n0o" path="res://scene/box.tscn" id="5_5fsth"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ln1hb"]
+radius = 49.366
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uu8fi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t5l2t"]
+radius = 58.0345
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fo66r"]
+radius = 102.489
+
+[node name="Node2D" type="Node2D"]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(278, 567)
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_2r8b8")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+texture = ExtResource("2_02wl3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CircleShape2D_ln1hb")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(342, 1112)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_uu8fi")
+
+[node name="RigidBody2D2" type="RigidBody2D" parent="."]
+position = Vector2(546, 357)
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D2"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_a7nbj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2"]
+shape = SubResource("CircleShape2D_t5l2t")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(127, 996)
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
+texture = ExtResource("3_lr6bu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+shape = SubResource("CircleShape2D_fo66r")
+
+[node name="Box" parent="." instance=ExtResource("5_5fsth")]
+position = Vector2(280, 819)
+rotation = -3.1137
+
+[connection signal="body_entered" from="RigidBody2D" to="RigidBody2D" method="_on_body_entered"]
+[connection signal="body_shape_entered" from="RigidBody2D" to="RigidBody2D" method="_on_body_shape_entered"]

@@ -12,7 +12,6 @@ var initial_pos: Vector2
 var life_for_color: float
 
 func _ready() -> void:
-	gpu_particles_2d.emitting = false
 	if is_in_group("Box"):
 		life = randi() % 46 + 5 
 	else:
@@ -24,6 +23,7 @@ func _ready() -> void:
 	gravity_scale = 0
 	lock_rotation = true
 	freeze = true
+
 
 func _process(delta: float) -> void:
 	if dont_move:
@@ -40,15 +40,16 @@ func _physics_process(delta: float) -> void:
 		update_text()
 
 func _on_body_entered(body: Node) -> void:
-	if body.is_in_group("snake"):
+	print(body.name)
+	if body.is_in_group("Snake"):
 		print(body.name)
 		life -= 1
 		update_text()
-		gpu_particles_2d.emitting = true
+		#gpu_particles_2d.emitting = true
 		body.is_colliding_with_box = true
 		body.decrease_length(1)
-		#if life <= 0:
-			#destroy()
+		if life <= 0:
+			destroy()
 
 
 func update_text() -> void:
@@ -64,14 +65,14 @@ func set_box_color() -> void:
 		color = Color(life_for_color / (max_life_for_red / 2), 1, 0, 1)  
 	if sprite:
 		sprite.modulate = color
-#
-#func destroy() -> void:
-	#$Sprite2D.visible = false
-	#$Label.visible = false
-	#$CollisionShape2D.disabled = true
-	#gpu_particles_2d.emitting = true
-	#await get_tree().create_timer(0.5).timeout
-	#queue_free()
+
+func destroy() -> void:
+	$Sprite2D.visible = false
+	$Label.visible = false
+	$CollisionShape2D.disabled = true
+	gpu_particles_2d.emitting = true
+	
+	queue_free()
 
 
 
