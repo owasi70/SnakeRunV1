@@ -1,0 +1,69 @@
+[gd_scene load_steps=7 format=3 uid="uid://bw6hdqsks2n0o"]
+
+[ext_resource type="Script" path="res://script/box.gd" id="1_mogw3"]
+[ext_resource type="Texture2D" uid="uid://dq1isnrnrnjl3" path="res://asset/ob2.png" id="1_o7qi3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ppd61"]
+size = Vector2(83, 91)
+
+[sub_resource type="Curve" id="Curve_1higy"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.021978), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_y5twt"]
+curve = SubResource("Curve_1higy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dkanc"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+emission_shape = 2
+emission_sphere_radius = 1.0
+spread = 154.213
+flatness = 0.18
+initial_velocity_max = 500.0
+gravity = Vector3(0, 0, 0)
+scale_max = 10.0
+scale_curve = SubResource("CurveTexture_y5twt")
+color = Color(0, 1, 0, 1)
+
+[node name="Box" type="RigidBody2D" groups=["Box"]]
+disable_mode = 1
+gravity_scale = 0.0
+can_sleep = false
+lock_rotation = true
+freeze = true
+freeze_mode = 1
+continuous_cd = 2
+contact_monitor = true
+max_contacts_reported = 10
+linear_damp_mode = 1
+script = ExtResource("1_mogw3")
+dont_move = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_o7qi3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -2.5)
+shape = SubResource("RectangleShape2D_ppd61")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(1, 40)
+rotation = 1.61904
+emitting = false
+amount = 50
+amount_ratio = 0.975
+process_material = SubResource("ParticleProcessMaterial_dkanc")
+lifetime = 0.7
+explosiveness = 1.0
+randomness = 0.7
+fixed_fps = 0
+draw_order = 0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

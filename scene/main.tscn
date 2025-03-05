@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://bui3lmuanot7h"]
+
+[ext_resource type="PackedScene" uid="uid://ubghcpabuo1" path="res://scene/snake.tscn" id="1_61r3q"]
+[ext_resource type="Script" path="res://script/camera_2d.gd" id="1_mvq4d"]
+[ext_resource type="Texture2D" uid="uid://bg6nf6nalmvor" path="res://asset/bg.png" id="2_sytql"]
+[ext_resource type="Script" path="res://script/food_manager.gd" id="4_d8dcq"]
+[ext_resource type="PackedScene" uid="uid://dylej43hp4b51" path="res://scene/food.tscn" id="5_ttqjx"]
+[ext_resource type="Script" path="res://script/box_manager.gd" id="6_413no"]
+[ext_resource type="PackedScene" uid="uid://bw6hdqsks2n0o" path="res://scene/box.tscn" id="7_crl1a"]
+
+[node name="main" type="Node2D"]
+
+[node name="snake" parent="." instance=ExtResource("1_61r3q")]
+position = Vector2(326, 906)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(327, 580)
+limit_smoothed = true
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+drag_vertical_enabled = true
+script = ExtResource("1_mvq4d")
+snake_path = NodePath("../snake")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="bg" type="Sprite2D" parent="ParallaxBackground"]
+position = Vector2(325.25, 577.75)
+scale = Vector2(0.605093, 0.595052)
+texture = ExtResource("2_sytql")
+
+[node name="FoodManager" type="Node2D" parent="."]
+script = ExtResource("4_d8dcq")
+snake_path = NodePath("../snake")
+food_scene = ExtResource("5_ttqjx")
+appearance_frequency = 60
+
+[node name="BoxManager" type="Node2D" parent="."]
+script = ExtResource("6_413no")
+snake_path = NodePath("../snake")
+box_scene = ExtResource("7_crl1a")
+min_spawn_time = 1.0
+max_spawn_time = 3.0
+min_spawn_dist = 1000.0
+
+[node name="Timer" type="Timer" parent="."]
