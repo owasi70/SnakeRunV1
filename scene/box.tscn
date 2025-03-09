@@ -27,14 +27,14 @@ scale_curve = SubResource("CurveTexture_pfhc8")
 color = Color(0, 1, 0, 1)
 
 [node name="Box" type="RigidBody2D" groups=["Box"]]
-mass = 0.001
-gravity_scale = 0.0
-freeze_mode = 1
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_mogw3")
+life = 1
+max_life_for_red = 50
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_as_relative = false
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_o7qi3")
 
@@ -47,7 +47,6 @@ offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-visible = false
 position = Vector2(1, 40)
 rotation = 1.61904
 emitting = false
@@ -59,6 +58,3 @@ explosiveness = 1.0
 randomness = 0.7
 fixed_fps = 0
 draw_order = 0
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]

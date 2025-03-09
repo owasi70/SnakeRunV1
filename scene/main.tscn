@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bui3lmuanot7h"]
+[gd_scene load_steps=12 format=3 uid="uid://bui3lmuanot7h"]
 
 [ext_resource type="PackedScene" uid="uid://ubghcpabuo1" path="res://scene/snake.tscn" id="1_61r3q"]
 [ext_resource type="Script" path="res://script/camera_2d.gd" id="1_mvq4d"]
@@ -8,8 +8,20 @@
 [ext_resource type="Script" path="res://script/box_manager.gd" id="6_413no"]
 [ext_resource type="PackedScene" uid="uid://bw6hdqsks2n0o" path="res://scene/box.tscn" id="7_crl1a"]
 [ext_resource type="Script" path="res://script/hud.gd" id="8_tn8h0"]
+[ext_resource type="Texture2D" uid="uid://3si5snhm4sf5" path="res://asset/candy-256.png" id="9_cpufq"]
+[ext_resource type="Texture2D" uid="uid://bpo7pu64qci3b" path="res://asset/apple-256.png" id="10_jdftp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tifrn"]
+radius = 102.489
 
 [node name="main" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="bg" type="Sprite2D" parent="ParallaxBackground"]
+position = Vector2(325.25, 577.75)
+scale = Vector2(0.605093, 0.595052)
+texture = ExtResource("2_sytql")
 
 [node name="snake" parent="." instance=ExtResource("1_61r3q")]
 position = Vector2(326, 906)
@@ -23,17 +35,13 @@ drag_vertical_enabled = true
 script = ExtResource("1_mvq4d")
 snake_path = NodePath("../snake")
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-
-[node name="bg" type="Sprite2D" parent="ParallaxBackground"]
-position = Vector2(325.25, 577.75)
-scale = Vector2(0.605093, 0.595052)
-texture = ExtResource("2_sytql")
-
 [node name="FoodManager" type="Node2D" parent="."]
 script = ExtResource("4_d8dcq")
 snake_path = NodePath("../snake")
 food_scene = ExtResource("5_ttqjx")
+appearance_frequency = 20
+min_spawn_time = 1.0
+max_spawn_time = 2.0
 
 [node name="BoxManager" type="Node2D" parent="."]
 script = ExtResource("6_413no")
@@ -68,3 +76,35 @@ grow_horizontal = 0
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 46
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(904, 623)
+can_sleep = false
+max_contacts_reported = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+texture = ExtResource("9_cpufq")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RigidBody2D"]
+polygon = PackedVector2Array(-18, -126, -18, -124.7, -31.4, -122, -35.4, -122, -49.3, -116, -52.6, -116, -76.6, -100, -78.9, -100, -102.9, -74, -104.3, -74, -120.3, -40, -121.7, -40, -125.7, -17, -127, -17, -127, 14.3, -122, 33, -122, 37.5, -109, 63.5, -109, 65.8, -87, 90.7, -87, 92, -69, 105, -69, 106.3, -54, 113.2, -54, 114.5, -24, 122.5, -24, 123.7, -15.1, 125, 13.3, 125, 42.1, 117, 45.6, 117, 73.5, 100, 75.9, 100, 97.8, 77, 99.2, 77, 116.2, 45, 117.6, 45, 123.7, 16, 125, 16, 125, -15.3, 118, -41, 118, -44.5, 103, -70.5, 103, -72.8, 84, -92.8, 84, -94.1, 62, -109.1, 62, -110.4, 35, -120.5, 35, -121.7, 16, -124.8, 16, -126)
+
+[node name="RigidBody2D2" type="RigidBody2D" parent="."]
+position = Vector2(502, 525)
+mass = 50.646
+gravity_scale = 0.0
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D2"]
+texture = ExtResource("9_cpufq")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RigidBody2D2"]
+polygon = PackedVector2Array(-18, -126, -18, -124.7, -31.4, -122, -35.4, -122, -49.3, -116, -52.6, -116, -76.6, -100, -78.9, -100, -102.9, -74, -104.3, -74, -120.3, -40, -121.7, -40, -125.7, -17, -127, -17, -127, 14.3, -122, 33, -122, 37.5, -109, 63.5, -109, 65.8, -87, 90.7, -87, 92, -69, 105, -69, 106.3, -54, 113.2, -54, 114.5, -24, 122.5, -24, 123.7, -15.1, 125, 13.3, 125, 42.1, 117, 45.6, 117, 73.5, 100, 75.9, 100, 97.8, 77, 99.2, 77, 116.2, 45, 117.6, 45, 123.7, 16, 125, 16, 125, -15.3, 118, -41, 118, -44.5, 103, -70.5, 103, -72.8, 84, -92.8, 84, -94.1, 62, -109.1, 62, -110.4, 35, -120.5, 35, -121.7, 16, -124.8, 16, -126)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(184, 454)
+collision_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
+texture = ExtResource("10_jdftp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+shape = SubResource("CircleShape2D_tifrn")

@@ -1,14 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://ubghcpabuo1"]
+[gd_scene load_steps=11 format=3 uid="uid://ubghcpabuo1"]
 
 [ext_resource type="Script" path="res://script/snake.gd" id="1_1y70h"]
 [ext_resource type="Texture2D" uid="uid://bb77tm6myevic" path="res://asset/head.png" id="1_70ums"]
 [ext_resource type="PackedScene" uid="uid://ccssm4g806sd7" path="res://scene/tail_segment.tscn" id="2_httmn"]
+[ext_resource type="AudioStream" uid="uid://bf82nmdb5pu0s" path="res://audio/remove.ogg" id="4_ilk7q"]
+[ext_resource type="AudioStream" uid="uid://c4s6askk2frm2" path="res://audio/eat.ogg" id="5_ydlkj"]
+[ext_resource type="AudioStream" uid="uid://dhx3orbby7tes" path="res://audio/gameover.ogg" id="6_n5h8c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s1f3j"]
-radius = 14.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_qwwvl"]
-radius = 22.19
+radius = 16.0
 
 [sub_resource type="Curve" id="Curve_d645g"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.021978), 0.0, 0.0, 0, 0]
@@ -31,13 +31,18 @@ scale_curve = SubResource("CurveTexture_y5twt")
 color = Color(0.36, 1, 0.36, 1)
 
 [node name="snake" type="RigidBody2D" groups=["snake"]]
-collision_mask = 3
+gravity_scale = 0.0
+lock_rotation = true
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_1y70h")
+speed = 240.0
+sensitivity = 0.8
 tail_scene = ExtResource("2_httmn")
+follow_speed = 29.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_as_relative = false
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_70ums")
 
@@ -51,12 +56,6 @@ offset_right = 19.0
 offset_bottom = -12.0
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="tailContainer" type="Node2D" parent="."]
-position = Vector2(0, 15)
-
-[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
-shape = SubResource("CircleShape2D_qwwvl")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(0, -23)
@@ -74,5 +73,13 @@ collision_base_size = 0.0
 draw_order = 0
 trail_sections = 4
 
-[connection signal="pressed" from="TouchScreenButton" to="." method="_on_touch_screen_button_pressed"]
-[connection signal="released" from="TouchScreenButton" to="." method="_on_touch_screen_button_released"]
+[node name="removesound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ilk7q")
+volume_db = 10.636
+
+[node name="eatsound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_ydlkj")
+volume_db = 10.636
+
+[node name="gameoversound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_n5h8c")

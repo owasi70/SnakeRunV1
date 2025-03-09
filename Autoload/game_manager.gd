@@ -7,7 +7,8 @@ var final_score:int = 0
 func start_game():
 	get_tree().change_scene_to_packed(MAIN)
 
-func game_over():
+func game_all_over():
+	await get_tree().create_timer(0.5).timeout
 	get_tree().change_scene_to_packed(STARTMENU)
 
 

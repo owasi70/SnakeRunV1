@@ -21,6 +21,7 @@ radius = 102.489
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 position = Vector2(278, 567)
+gravity_scale = 0.0
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_2r8b8")
@@ -38,7 +39,7 @@ position = Vector2(342, 1112)
 shape = SubResource("WorldBoundaryShape2D_uu8fi")
 
 [node name="RigidBody2D2" type="RigidBody2D" parent="."]
-position = Vector2(546, 357)
+position = Vector2(154, 355)
 
 [node name="Sprite2D" type="Sprite2D" parent="RigidBody2D2"]
 scale = Vector2(0.5, 0.5)
@@ -48,7 +49,7 @@ texture = ExtResource("3_a7nbj")
 shape = SubResource("CircleShape2D_t5l2t")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2(127, 996)
+position = Vector2(244, 929)
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
 texture = ExtResource("3_lr6bu")
@@ -57,7 +58,7 @@ texture = ExtResource("3_lr6bu")
 shape = SubResource("CircleShape2D_fo66r")
 
 [node name="Box" parent="." instance=ExtResource("5_5fsth")]
-position = Vector2(280, 819)
+position = Vector2(310, 738)
 rotation = -3.1137
 
 [connection signal="body_entered" from="RigidBody2D" to="RigidBody2D" method="_on_body_entered"]
