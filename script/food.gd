@@ -74,3 +74,5 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.has_method("increase_length"):
 		body.increase_length(value)
 		queue_free()
+	if body is Box:
+		body.queue_free()

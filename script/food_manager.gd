@@ -37,7 +37,7 @@ func spawn_food() -> void:
 	var camera_y = camera.global_position.y if camera else 0
 	var spawn_y = camera_y - viewport_rect.size.y / 2 - 50
 	if snake:
-		spawn_y = snake.global_position.y - lane_width * 2 - 200
+		spawn_y = snake.global_position.y - lane_width * 2 - 500
 	for i in range(-2, 3):  
 		if randi() % 100 < appearance_frequency:
 			var x = i * lane_width + viewport_width / 2 + randf_range(-lane_width / 3, lane_width / 3)
@@ -45,3 +45,9 @@ func spawn_food() -> void:
 			food_instance.global_position = Vector2(x, spawn_y)
 			food_instance.add_to_group("Food")
 			add_child(food_instance)
+
+func _physics_process(_delta: float) -> void:
+	if is_instance_valid(snake):
+		for child in get_children():
+			if child.is_in_group("Food") and child.global_position.y > snake.global_position.y + get_viewport_rect().size.y:
+				child.queue_free()

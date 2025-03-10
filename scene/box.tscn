@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dq1isnrnrnjl3" path="res://asset/ob2.png" id="1_o7qi3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ppd61"]
-size = Vector2(83, 95)
+size = Vector2(116, 92)
 
 [sub_resource type="Curve" id="Curve_1higy"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.021978), 0.0, 0.0, 0, 0]
@@ -35,11 +35,12 @@ max_life_for_red = 50
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_as_relative = false
-scale = Vector2(0.5, 0.5)
+position = Vector2(0.25, -0.292645)
+scale = Vector2(0.7, 0.5)
 texture = ExtResource("1_o7qi3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, -0.5)
+position = Vector2(1, -2)
 shape = SubResource("RectangleShape2D_ppd61")
 
 [node name="Label" type="Label" parent="."]
